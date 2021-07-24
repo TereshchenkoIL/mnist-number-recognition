@@ -3,12 +3,13 @@ using System;
 
 namespace mnist_number_recognition.Model
 {
-    class Neuron
+    public class Neuron
     {
         public List<double> Weights {get; set;}
 
-        public double Output {get; private set;}
-        public Neuron(int wieghtNumber ){
+        public double Output {get; set;}
+        public NeuronType NeuronType {get; set;}
+        public Neuron(int wieghtNumber, NeuronType type = NeuronType.Hidden ){
             Weights = new List<double>();
 
             Random rand = new Random();
@@ -16,8 +17,10 @@ namespace mnist_number_recognition.Model
             for(int i = 0; i < wieghtNumber; i++){
                 Weights.Add(rand.NextDouble());
             }
+            NeuronType = type;
 
         }
+
     
         public double Process(List<double> inputs){
             double sum = 0;
