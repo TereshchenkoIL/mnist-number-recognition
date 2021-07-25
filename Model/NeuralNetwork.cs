@@ -21,7 +21,9 @@ namespace mnist_number_recognition.Model
         public void Train(TrainingOptions options){
 
             for(int i = 0; i < options.Iterations; i++){
-                AdjustWieghts(options);
+                var error = AdjustWieghts(options);
+
+                Console.WriteLine($"Iteration = {i} - stdError = {error}");
             }
             
         }
@@ -64,7 +66,7 @@ namespace mnist_number_recognition.Model
             return stdError;
         }
 
-        private double[] GetRow(int row, double[,] inputs){
+        public double[] GetRow(int row, double[,] inputs){
             int colNumber = inputs.GetLength(1);
             double[] res = new double[colNumber];
 
@@ -83,7 +85,7 @@ namespace mnist_number_recognition.Model
                 previous = Layers[i];
             }
 
-            return Layers[-1].GetOutputs().ToList();
+            return Layers.Last().GetOutputs().ToList();
 
     
         }

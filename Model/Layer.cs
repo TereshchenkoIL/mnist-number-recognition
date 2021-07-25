@@ -17,6 +17,13 @@ namespace mnist_number_recognition.Model
 
 
         public void Forward(double[] inputs){
+
+            if(NeuronsType == NeuronType.Input){
+                for(int i = 0; i < Neurons.Count; i++){
+                    Neurons[i].Process(new double[]{inputs[i]});
+                }
+                return;
+            }
             foreach(Neuron neuron in Neurons){
                 neuron.Process(inputs);
             }

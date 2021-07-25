@@ -18,6 +18,7 @@ namespace mnist_number_recognition.Model
             WieghtNumber = wieghtNumber;
             NeuronType = type;
             Input = new double[wieghtNumber];
+            InitWeights();
 
         }
 
