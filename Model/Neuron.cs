@@ -9,14 +9,15 @@ namespace mnist_number_recognition.Model
 
         public double Output {get; private set;}
         public NeuronType NeuronType {get; set;}
+        public double Delta {get; set;}
 
         public int WieghtNumber{get; private set;}
-        public List<double> Input {get; set;}
+        public double[] Input {get; set;}
         public Neuron(int wieghtNumber, NeuronType type = NeuronType.Hidden ){
             Weights = new List<double>();
             WieghtNumber = wieghtNumber;
             NeuronType = type;
-            Input = new List<double>();
+            Input = new double[wieghtNumber];
 
         }
 
@@ -33,14 +34,14 @@ namespace mnist_number_recognition.Model
         }
 
     
-        public double Process(List<double> inputs){
-            if(Weights.Count != inputs.Count)
+        public double Process(double[] inputs){
+            if(Weights.Count != inputs.Length)
                 throw new ArgumentException();
             
             SetInputs(inputs);
 
             double sum = 0;
-            for(var i = 0; i < inputs.Count; i++){
+            for(var i = 0; i < inputs.Length; i++){
                 sum += Weights[i] * inputs[i];
             }
 
@@ -51,9 +52,9 @@ namespace mnist_number_recognition.Model
 
             return Output;
         }
-        private void SetInputs(List<double> inputs){
-            for(var i = 0; i < inputs.Count; i++){
-                Input.Add(inputs[i]);
+        private void SetInputs(double[] inputs){
+            for(var i = 0; i < inputs.Length; i++){
+                Input[i] = inputs[i];
             }
         }
         private double SigmoidDerived(double x){
@@ -64,6 +65,14 @@ namespace mnist_number_recognition.Model
         }
 
         public void Adjustment(double error, double alpha){
+            if(NeuronType == NeuronType.Input)
+                return;
+
+            Delta = error * SigmoidDerived(Output); 
+
+            for(var i = 0; i < WieghtNumber;i++){
+                Weights[i] += Input[i] * Delta * alpha;
+            }
            
         }
     }

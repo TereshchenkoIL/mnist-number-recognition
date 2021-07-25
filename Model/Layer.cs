@@ -16,7 +16,7 @@ namespace mnist_number_recognition.Model
         }
 
 
-        public void Forward(List<double> inputs){
+        public void Forward(double[] inputs){
             foreach(Neuron neuron in Neurons){
                 neuron.Process(inputs);
             }
