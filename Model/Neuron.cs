@@ -29,7 +29,7 @@ namespace mnist_number_recognition.Model
                 if(NeuronType == NeuronType.Input){
                     Weights.Add(1);
                 }else
-                    Weights.Add(rand.NextDouble());
+                    Weights.Add(0.2 *rand.NextDouble() - 0.1);
             }
 
         }

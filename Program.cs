@@ -22,7 +22,7 @@ namespace mnist_number_recognition
             neuralNetwork.Append(outputLayer);
             TrainingOptions options = new TrainingOptions(){
                 Inputs = inputs,
-                Alpha = 0.1,
+                Alpha = 0.005,
                 Results = outputs,
                 Iterations = 100
 
