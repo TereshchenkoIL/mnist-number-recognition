@@ -1,6 +1,6 @@
 # Handwritten Digit Recognition using Deep Learning
 
----
+
 
 ### MNIST dataset:
 
